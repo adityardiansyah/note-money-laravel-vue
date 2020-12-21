@@ -15,9 +15,9 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transaction = Transaction::orderBy('time','desc')->get();
+        $transaction = Transaction::where('title', 'LIKE','%'.$request->search.'%')->orderBy('time','desc')->paginate(1);
         $response = [
             'message' => 'List transaction order by time',
             'data' => $transaction
